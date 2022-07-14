@@ -1,0 +1,8 @@
+accounts/__pycache__/*
+accounts/migrations/__pycache__/*
+main/templatetags/__pycache__/*
+main/migrations/__pycache__/*
+main/__pycache__/*
+blog/templatetags/__pycache__/*
+blog/migrations/__pycache__/*
+blog/__pycache__/*
