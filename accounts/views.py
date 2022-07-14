@@ -13,23 +13,22 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request = request, data = request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-
-                if not request.POST.get('remember_me', None):
-                    request.session.set_expiry(0)
-
-                return redirect('/')
+            loginUser(request, form)
+            return redirect('/')
         else:
             messages.add_message(request, messages.ERROR, 'Username/Password is incorrect!')
 
-    form = AuthenticationForm()
-    context = {'form': form}
+    return render(request, 'accounts/login.html')
 
-    return render(request, 'accounts/login.html', context)
+def loginUser(request, form):
+    username = form.cleaned_data.get('username')
+    password = form.cleaned_data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+
+        if not request.POST.get('remember_me', None):
+            request.session.set_expiry(0)
 
 @login_required
 def logout_view(request):
