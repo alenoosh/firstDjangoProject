@@ -13,8 +13,9 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request = request, data = request.POST)
         if form.is_valid():
-            loginUser(request, form)
-            return redirect('/')
+            loggedInUser = loginUser(request, form)
+            if loggedInUser is not None:
+                return redirect('/')
         else:
             messages.add_message(request, messages.ERROR, 'Username/Password is incorrect!')
 
@@ -29,6 +30,8 @@ def loginUser(request, form):
 
         if not request.POST.get('remember_me', None):
             request.session.set_expiry(0)
+
+    return user
 
 @login_required
 def logout_view(request):
