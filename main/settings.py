@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-c+w=0v&o6bg4hgw-_((-n9$in9*(d!!069rftv#nqh=)!#l9m=
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -53,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 # sites framework
-SITE_ID = 2
+SITE_ID = 3
 
 # robots
 ROBOTS_USE_HOST = False
@@ -195,4 +193,8 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.CustomModelBackend']
 
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 30 # One month
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
